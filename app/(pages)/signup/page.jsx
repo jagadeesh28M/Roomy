@@ -163,7 +163,7 @@ function SignUp() {
           <button
             type="submit"
             disabled={password !== confirmPassword || isLoading}
-            className={`w-full py-2 rounded-md transition duration-200 ${
+            className={`w-full py-2 rounded-md transition duration-200 cursor-pointer ${
               password !== confirmPassword || isLoading
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700 text-white"

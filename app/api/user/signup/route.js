@@ -2,6 +2,8 @@ const connectDB = require("../../../../lib/config/db");
 const User = require("../../../../lib/models/User");
 
 export async function POST(request) {
+  const bcrypt = require("bcrypt");
+  const saltRounds = 10;
   try {
     await connectDB();
     const formData = await request.formData();
@@ -10,7 +12,10 @@ export async function POST(request) {
     const password = formData.get("password");
     const role = formData.get("role") || "user";
 
-    const newUser = new User({ name, email, password, role });
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const newUser = new User({ name, email, password: hashedPassword, role });
     await newUser.save();
 
     return new Response(

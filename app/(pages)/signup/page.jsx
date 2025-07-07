@@ -14,8 +14,21 @@ function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  const isPasswordValid = (pwd) => {
+    return /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/.test(
+      pwd
+    );
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!isPasswordValid(password)) {
+      setMessage(
+        "Password must be at least 8 characters, include 1 uppercase letter and 1 special character."
+      );
+      return;
+    }
 
     if (password !== confirmPassword) {
       setMessage("Passwords do not match.");
@@ -67,6 +80,11 @@ function SignUp() {
       setIsLoading(false);
     }
   };
+
+  const passwordError =
+    password && !isPasswordValid(password)
+      ? "Password must be at least 8 characters, include 1 uppercase letter and 1 special character."
+      : "";
 
   return (
     <div className="bg-gray-100 flex items-center justify-center h-screen w-full">
@@ -124,6 +142,9 @@ function SignUp() {
               placeholder="Enter your password"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
+            {passwordError && (
+              <div className="text-sm p-1 text-red-600">{passwordError}</div>
+            )}
           </div>
 
           <div>
@@ -138,7 +159,7 @@ function SignUp() {
               placeholder="Confirm your password"
               className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {password !== confirmPassword && (
+            {password !== confirmPassword && confirmPassword && (
               <div className="text-sm p-1 text-red-600">
                 Passwords do not match
               </div>
@@ -162,9 +183,15 @@ function SignUp() {
 
           <button
             type="submit"
-            disabled={password !== confirmPassword || isLoading}
+            disabled={
+              password !== confirmPassword ||
+              isLoading ||
+              !isPasswordValid(password)
+            }
             className={`w-full py-2 rounded-md transition duration-200 cursor-pointer ${
-              password !== confirmPassword || isLoading
+              password !== confirmPassword ||
+              isLoading ||
+              !isPasswordValid(password)
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-blue-600 hover:bg-blue-700 text-white"
             }`}

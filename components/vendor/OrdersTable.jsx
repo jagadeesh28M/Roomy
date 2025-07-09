@@ -108,29 +108,39 @@ export default function OrdersTable() {
   return (
     <div className="p-6 bg-[#121317] min-h-screen text-white">
       <h2 className="text-2xl font-bold mb-4">Orders</h2>
-      <div className="rounded-xl border border-[#1A1C23] bg-[#121317] overflow-hidden shadow">
+      <div className="rounded-xl border border-[#636b86] bg-[#121317] overflow-hidden shadow-lg">
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-gray-400">Client</TableHead>
-              <TableHead className="text-gray-400">Order ID</TableHead>
-              <TableHead className="text-gray-400">Amount</TableHead>
-              <TableHead className="text-gray-400">Status</TableHead>
-              <TableHead className="text-gray-400">Date</TableHead>
+              <TableHead className="text-gray-400 font-semibold">
+                Client
+              </TableHead>
+              <TableHead className="text-gray-400 font-semibold">
+                Order ID
+              </TableHead>
+              <TableHead className="text-gray-400 font-semibold">
+                Amount
+              </TableHead>
+              <TableHead className="text-gray-400 font-semibold">
+                Status
+              </TableHead>
+              <TableHead className="text-gray-400 font-semibold">
+                Date
+              </TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             {orders.map((order, index) => (
               <TableRow key={index}>
-                <TableCell className="flex items-center gap-3">
+                <TableCell className="flex items-center gap-3 text-gray-400 font-semibold">
                   <Avatar>
                     <AvatarImage src={order.avatar} alt={order.name} />
                     <AvatarFallback>{order.name[0]}</AvatarFallback>
                   </Avatar>
                   <span>{order.name}</span>
                 </TableCell>
-                <TableCell>{order.orderId}</TableCell>
-                <TableCell>{order.amount}</TableCell>
+                <TableCell className="text-gray-400">{order.orderId}</TableCell>
+                <TableCell className="text-gray-400">{order.amount}</TableCell>
                 <TableCell>
                   <Badge
                     className={`${
@@ -140,13 +150,15 @@ export default function OrdersTable() {
                     {order.status}
                   </Badge>
                 </TableCell>
-                <TableCell>{order.date}</TableCell>
+                <TableCell className="text-gray-400">{order.date}</TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
         <div className="p-4">
-          <span className="text-sm text-gray-400">SHOWING 1-10 OF 45</span>
+          <span className="text-sm text-gray-400 font-semibold">
+            SHOWING 1-10 OF 45
+          </span>
           <Pagination className="mt-4">
             <PaginationContent>
               <PaginationItem>
